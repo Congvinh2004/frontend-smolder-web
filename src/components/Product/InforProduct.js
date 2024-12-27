@@ -28,18 +28,18 @@ class InforProduct extends Component {
     }
     render() {
 
-        let productImg = this.props.product
-        console.log('check product img: ', productImg)
+        let { product, productImg } = this.props
+        console.log('check props: ', this.props)
         return (
             <>
 
                 {
-                    productImg &&
+
                     <div className="product-item text-center">
                         <div className='product-img'
                             // onClick={() => { this.handleRedirectToProductPage() }}
                             style={{
-                                backgroundImage: `url(${productImg})`,
+                                backgroundImage: `url(${product.image})`,
                             }}>
                             <div className="product-badge">
                                 <span className="sale-badge">-19%</span>
@@ -76,10 +76,10 @@ class InforProduct extends Component {
                                     <li class="review-total"> <a href="#"> (24)</a></li>
                                 </ul>
                             </div>
-                            <h6 class="product-title">Carrots Group Scal</h6>
+                            <h6 class="product-title">{product.name}</h6>
                             <div class="product-price">
-                                <span className='price'>$32.00</span>
-                                <del className='price'>$46.00</del>
+                                <span className='price'>{`${product.price}đ`}</span>
+                                {/* <del className='price'>$46.00</del> */}
                             </div>
                         </div>
                     </div>

@@ -95,6 +95,13 @@ class HomePage extends Component {
         this.props.history.push(`/cart`)
         // }
     }
+    handleRedirectToCheckout = () => {
+        if (this.props.history) {
+            this.props.history.push(`/checkout`)
+        }
+    }
+
+
     componentDidMount() {
     }
 

@@ -10,6 +10,8 @@ import CustomScrollbars from '../../components/CustomScrollbars'
 import '../../components/Product/HomeHeader.scss'
 import logo2 from "../../imgs/logo-2.png"
 
+import { getAllProducts } from '../../services/productService';
+
 import logo from '../../imgs/logo.png'
 import banner1 from '../../imgs/banner/1.jpg'
 import banner2 from '../../imgs/banner/2.jpg'
@@ -62,11 +64,20 @@ class HomeProduct extends Component {
                 product14,
                 product15,
                 product16,
-            ]
+            ],
+            listInforProducts: []
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+
+        let listProducts = await getAllProducts("ALL");
+        if (listProducts && listProducts.data.length > 0) {
+            this.setState({
+                listInforProducts: listProducts.data
+            })
+        }
+
     }
     handleWayBackHome = () => {
         if (this.props.history) {
@@ -89,7 +100,8 @@ class HomeProduct extends Component {
 
 
     render() {
-        let { listProducts } = this.state
+        let { listProducts, listInforProducts } = this.state
+        console.log('check  list infor products: ', listInforProducts)
         return (
             <>
                 <div className='home-product-container'>
@@ -215,8 +227,8 @@ class HomeProduct extends Component {
 
                                 <div className='list-product-container'>
 
-                                    {listProducts && listProducts.length > 0 && listProducts.map((product, index) => (
-                                        < InforProduct product={product} key={index} />
+                                    {listInforProducts && listInforProducts.length > 0 && listInforProducts.map((product, index) => (
+                                        < InforProduct product={product} productImg={listProducts[index]} key={index} />
                                     ))
                                     }
 
