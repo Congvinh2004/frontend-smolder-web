@@ -43,14 +43,15 @@ class App extends Component {
             <Fragment>
                 <Router history={history}>
                     <div className="main-container">
-
+                        {/* {this.props.isLoggedIn && <HomePage />} */}
                         <div className="content-container">
 
                             <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                    <Route path={path.SYSTEM} component={(System)} />
+                                    <Route path={path.SYSTEM} component={(userIsAuthenticated(System))} />
+                                    {/* <Route path={path.SYSTEM} component={(System)} /> */}
                                     <Route path={path.HOMEPRODUCT} component={(HomeProduct)} />
                                     <Route path={path.CART} component={(Cart)} />
                                     <Route path={path.CHECKOUT} component={(Checkout)} />
@@ -90,7 +91,7 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         started: state.app.started,
-        // isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn
     };
 };
 

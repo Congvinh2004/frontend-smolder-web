@@ -1,7 +1,11 @@
 import axios from "../axios";
 
-const getAllUsers = (inputId) => {
-    return axios.get(`/api/get-all-user?id=${inputId}`)
+let handleLoginApi = (email, password) => {
+    return axios.post('/api/login', { email, password })
+}
+
+const getAllUsers = (userId) => {
+    return axios.get(`/api/get-all-user?id=${userId}`)
 }
 
 const createNewUsersFromService = (data) => {
@@ -11,4 +15,4 @@ const createNewUsersFromService = (data) => {
 const deleteUser = (userID) => {
     return axios.delete(`/api/delete-user?id=${userID}`)
 }
-export { getAllUsers, createNewUsersFromService, deleteUser }
+export { getAllUsers, createNewUsersFromService, deleteUser, handleLoginApi }

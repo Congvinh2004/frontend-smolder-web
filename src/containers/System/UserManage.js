@@ -5,6 +5,7 @@ import "./UserManage.scss"
 import { getAllUsers, createNewUsersFromService, deleteUser } from "../../services/userService"
 import ModalUser from './ModalUser';
 import { emitter } from '../../utils/emitter'
+import * as actions from "../../store/actions";
 
 
 class UserManage extends Component {
@@ -67,6 +68,12 @@ class UserManage extends Component {
             await this.getAllUsersFromReact()
         }
     }
+
+    handleLogout = () => {
+        console.log('User logged out');
+        // Chuyển hướng đến trang đăng nhập
+        this.props.processLogout();
+    }
     render() {
         let { listUsers, isOpenModal } = this.state
         return (
@@ -86,15 +93,21 @@ class UserManage extends Component {
                             <i className="fas fa-plus"></i>
                             Add a new user
                         </button>
+
+                        <button className='btn btn-secondary ml-2' onClick={() => this.handleLogout()}>
+                            <i className="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
                     </div>
                     <div className='user-table mt-3 mx-1'>
                         <table id="customers">
                             <tbody>
 
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>First name</th>
+                                    <th>Last name</th>
                                     <th>Address</th>
-                                    <th>Username</th>
                                     <th>Phone Number</th>
                                     <th>Action</th>
                                 </tr>
@@ -103,9 +116,10 @@ class UserManage extends Component {
                                     (
                                         <>
                                             <tr key={index}>
-                                                <td>{itemUser.name}</td>
+                                                <td>{itemUser.email}</td>
+                                                <td>{itemUser.firstName}</td>
+                                                <td>{itemUser.lastName}</td>
                                                 <td>{itemUser.address}</td>
-                                                <td>{itemUser.username}</td>
                                                 <td>{itemUser.phoneNumber}</td>
                                                 <td className='action-icon text-center'>
                                                     <i className="fas fa-edit _edit"></i>
@@ -137,6 +151,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        processLogout: () => dispatch(actions.processLogout())
     };
 };
 
